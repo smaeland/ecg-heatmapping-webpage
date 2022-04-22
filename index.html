@@ -11,12 +11,9 @@
     <body>
 
         <div class="container-fluid p-4">
-            <div class="row">
+            <div class="row py-2">
                 <div class="col-md-4">
-
-                    <!-- <div class="mb-3"> -->
                         <label for="observable" class="form-label">Observable</label>
-                        
                         <select id="observable" onChange="update()" class="form-select">
                             <option value="pr">PR interval</option>
                             <option value="qrs">QRS interval</option>
@@ -26,11 +23,10 @@
                             <option value="STJ_v5">J-point elevation</option>
                             <option value="VentRate">Ventricular rate</option>
                         </select>
-                    <!-- </div> -->
                 </div>
 
                 <div class="col-md-4">
-                    <label for="observable" class="form-label">Heatmap channels</label>
+                    <label for="channels" class="form-label">Heatmap channels</label>
                     <select id="channels" onChange="update()" class="form-select">
                         <option value="all">All</option>
                         <option value="averaged">Averaged</option>
@@ -38,28 +34,43 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="observable" class="form-label">Sample number</label>
+                    <label for="eventindex" class="form-label">Sample number</label>
                     <select id="eventindex" onChange="update()" class="form-select"></select>
                 </div>
+            
+            </div>
+
+            <div class="row py-2">
+                <div class="col-md-2">
+                    <div class="form-check form-switch form-group h3" onChange="blind()">
+                        <input class="form-check-input" type="checkbox" id="blind_switch" role="switch">
+                        <label class="form-check-label" for="blind_switch" id="blind_switch_label">Blinding off</label>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <button class="btn btn-primary disabled" id="show_caption" onClick="show_caption()" data-bs-toggle="button">Show labels</button>
+                </div>
+            </div>
 
 
             <div class="row">
                 <div class="col">
                     <figure>
-                        <img src="" id="saliency" class="img-fluid">
-                        <figcaption class="text-center">Saliency</figcaption>
+                        <img src="" id="fig0" class="img-fluid">
+                        <figcaption class="text-center" id="fig0caption">Saliency</figcaption>
                     </figure>
                 </div>
                 <div class="col">
                     <figure>
-                        <img src="" id="smoothgrad" class="img-fluid">
-                        <figcaption class="text-center">Smoothgrad</figcaption>
+                        <img src="" id="fig1" class="img-fluid">
+                        <figcaption class="text-center" id="fig1caption">Smoothgrad</figcaption>
                     </figure>
                 </div>
                 <div class="col">
                     <figure>
-                        <img src="" id="deconvolution" class="img-fluid">
-                        <figcaption class="text-center">Deconvolution</figcaption>
+                        <img src="" id="fig2" class="img-fluid">
+                        <figcaption class="text-center" id="fig2caption">Deconvolution</figcaption>
                     </figure>
                 </div>
             </div>
@@ -67,20 +78,20 @@
             <div class="row">
                 <div class="col">
                     <figure>
-                        <img src="" id="inputxgradient" class="img-fluid">
-                        <figcaption class="text-center">Input x gradient</figcaption>
+                        <img src="" id="fig3" class="img-fluid">
+                        <figcaption class="text-center" id="fig3caption">Input x gradient</figcaption>
                     </figure>
                 </div>
                 <div class="col">
                     <figure>
-                        <img src="" id="deeplift" class="img-fluid">
-                        <figcaption class="text-center">DeepLIFT</figcaption>
+                        <img src="" id="fig4" class="img-fluid">
+                        <figcaption class="text-center" id="fig4caption">DeepLIFT</figcaption>
                     </figure>
                 </div>
                 <div class="col">   
                     <figure>
-                        <img src="" id="guided_backprop" class="img-fluid">
-                        <figcaption class="text-center">Guided backprop</figcaption>
+                        <img src="" id="fig5" class="img-fluid">
+                        <figcaption class="text-center" id="fig5caption">Guided backprop</figcaption>
                     </figure>
                 </div>
             </div>
@@ -88,35 +99,32 @@
             <div class="row">
                 <div class="col">
                     <figure>
-                        <img src="" id="integrated_gradients" class="img-fluid">
-                        <figcaption class="text-center">Integrated gradients</figcaption>
+                        <img src="" id="fig6" class="img-fluid">
+                        <figcaption class="text-center" id="fig6caption">Integrated gradients</figcaption>
                     </figure>
                 </div>
                 <div class="col">
                     <figure>
-                        <img src="" id="guided_gradcam" class="img-fluid">
-                        <figcaption class="text-center">Guided Grad-CAM</figcaption>
+                        <img src="" id="fig7" class="img-fluid">
+                        <figcaption class="text-center" id="fig7caption">Guided Grad-CAM</figcaption>
                     </figure>
                 </div>
                 <div class="col">
                     <figure>
-                        <img src="" id="gradientshap" class="img-fluid">
-                        <figcaption class="text-center">Gradient SHAP</figcaption>
+                        <img src="" id="fig8" class="img-fluid">
+                        <figcaption class="text-center" id="fig8caption">Gradient SHAP</figcaption>
                     </figure>
                 </div>
             </div>
 
-            <div class="row p-4">
-            <div class="col-md-2">
-                
+            <div class="row p-4 justify-content-center">
+                <div class="col-md-2">
+                    <button type="button" id="prevbutton" class="btn btn-primary disabled" onclick="prevevent()">&lt Previous sample</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="nextbutton" class="btn btn-primary" onclick="nextevent()">Next sample &gt</button>
+                </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" id="prevbutton" class="btn btn-primary disabled" onclick="prevevent()">&lt Previous sample</button>
-            </div>
-            <div class="col-md-2">
-            <button type="button" id="nextbutton" class="btn btn-primary" onclick="nextevent()">Next sample &gt</button>
-            </div>
-        </div>
         </div>
     
         <script>
