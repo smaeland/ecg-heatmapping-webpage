@@ -12,7 +12,7 @@
 
         <div class="container-fluid p-4">
             <div class="row py-2">
-                <div class="col-md-4">
+                <div class="col">
                         <label for="observable" class="form-label">Observable</label>
                         <select id="observable" onChange="update()" class="form-select">
                             <option value="pr">PR interval</option>
@@ -25,7 +25,7 @@
                         </select>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col">
                     <label for="channels" class="form-label">Heatmap channels</label>
                     <select id="channels" onChange="update()" class="form-select">
                         <option value="all">All</option>
@@ -33,7 +33,17 @@
                     </select>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col">
+                    <label for="model" class="form-label">Model</label>
+                    <select id="model" onChange="update()" class="form-select">
+                        <option value="model1">StevenNet 1</option>
+                        <option value="model2">StevenNet 2</option>
+                        <option value="model3">StevenNet 3</option>
+                        <option value="model4">StevenNet 4</option>
+                    </select>
+                </div>
+
+                <div class="col">
                     <label for="eventindex" class="form-label">Sample number</label>
                     <select id="eventindex" onChange="update()" class="form-select"></select>
                 </div>

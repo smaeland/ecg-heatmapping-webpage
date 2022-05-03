@@ -75,11 +75,13 @@ function update() {
     var observable = document.getElementById("observable").value;
     var eventindex = document.getElementById("eventindex").value;
     var channels = document.getElementById("channels").value;
+    var model = document.getElementById("model").value;
     var blinded = document.getElementById("blind_switch").classList.contains("switch_on");
     // console.log("blinded: ", blinded)
 
     var basepath = (
         "plots/" +
+        model + "/" +
         observable +
         "-METHOD_eventindex_" +        
         eventindex
@@ -115,12 +117,11 @@ function update() {
         if (blinded) {caption.style.visibility = "hidden";}
         else {caption.style.visibility = "visible";}
     }
-    
 
     updatebuttons()
 }
 
-function shuffle(array) {
+function shuffle(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = array[i];
